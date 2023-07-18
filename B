@@ -1,0 +1,28 @@
+import math
+
+def cosine(dict1, dict2):
+    matches = set(dict1.keys()) & set(dict2.keys())  #common keys between dict1 & dict2
+    n1 = len(dict1)  #number of dict 1 phrases
+    n2 = len(dict2)  #number of dict phrases
+    n_matches = len(matches)  #common phrases
+    cosine_value = n_matches / math.sqrt(n1 * n2)  #cosine similarity
+    return cosine_value
+
+tweet_dictionaries = [moving_window(tweet.lower()) for tweet in tweets]  #tweet dictionaries list
+
+num_tweets = len(tweet_dictionaries)  #number of tweets
+cosine_table = [] #empty list 
+
+for i in range(num_tweets):
+    similarity_row = [] #empty list 
+    for j in range(num_tweets):
+        similarity_row.append(cosine(tweet_dictionaries[i], tweet_dictionaries[j])) #append cosine similarity to similarity_row list
+    cosine_table.append(similarity_row) #append similarity_row list to cosine_table list
+
+    
+print("Cosine Table:") #heading of table
+header = ["Tweet " + str(i + 1) for i in range(num_tweets)] #header labels
+print("\t" + "\t".join(header)) #print headers
+for i, row in enumerate(cosine_table): #iterate each index and row
+    similarity_values = "\t".join([f"{similarity:.2f}" for similarity in row]) #formatting
+    print(f"Tweet {i + 1}\t{similarity_values}") #print row labels
