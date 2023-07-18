@@ -1,0 +1,15 @@
+santa_txt = open("Santa.txt") # Open file
+tweets = santa_txt.readlines()
+
+def moving_window(tweet): #Function moving_window uses tweet as input
+    words = tweet.split() #split tweet into words
+    dict_tweet = {} #empty dictionary
+    for i in range(len(words) - 2): #Iterate range 0 to 'words' length minus 2
+        phrase = ' '.join(words[i:i+3]) #join current word with next 2 words and assign'phrase'
+        dict_tweet[phrase] = 1 #add phrase a key to dictionary w/1 value
+    return dict_tweet
+
+for line in tweets: #iterate over each line
+    line = line.lower().replace('"', '')
+    result = moving_window(line)
+    print(result)
