@@ -1,0 +1,14 @@
+near_duplicates = [] #empty list to store near-duplicate tweets
+num_tweets = len(tweet_dictionaries)#number of tweets
+for i in range(num_tweets):  #iterate tweet pairs
+    for j in range(i + 1, num_tweets): #iterate remainder
+        similarity = cosine(tweet_dictionaries[i], tweet_dictionaries[j]) #calculate cosine similarity
+        if similarity > 0.5: 
+            near_duplicates.append((tweets[i], tweets[j], similarity)) #append near-duplicate tweet pair and similarity value
+
+# Display near-duplicate tweets
+print("Near-Duplicate Tweets:") #header
+for tweet1, tweet2, similarity in near_duplicates: #iterate over near-duplicate tweets
+    print(f"{tweet1}") #1st near-duplicate tweet
+    print(f"{tweet2}") #2nd near-duplicate tweet
+    print(f"Cosine Similarity: {similarity:.2f}\n") #cosine similarity value
